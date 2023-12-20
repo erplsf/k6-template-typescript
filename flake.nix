@@ -1,15 +1,6 @@
 {
   description = "k6s typescript development environment";
-
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-
-    # needed for shell shim: see NixOS Flakes wiki page
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
-  };
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
   outputs = { self, nixpkgs, ... }@inputs:
     let
@@ -17,7 +8,7 @@
       pkgs = import nixpkgs { inherit system; };
     in {
       devShells.${system}.default = pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [
+        buildInputs = with pkgs; [
           nodejs
           yarn
           nodePackages.typescript-language-server
